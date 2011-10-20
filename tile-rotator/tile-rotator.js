@@ -451,7 +451,7 @@ this.each(function() {
 						$np.html(that.title);
 						$np.css({width: Math.max(10, ((rotator_element.width() + 2 - (num_nav_panes - 1)) / num_nav_panes) - ($np.outerWidth() - $np.width()))});
 						if (!ellipsed_contents) {
-							$np.RGEllipsis();
+							// $np.ellipsis();
 						}
 					});
 				if ($.browser.msie && $.browser.version < 7) {
@@ -491,7 +491,7 @@ this.each(function() {
 								.add($title)
 								.add($deck)
 								.add($byline)
-								.RGEllipsis();
+								// .ellipsis();
 						}
 					});
 				return $slider_pane;
