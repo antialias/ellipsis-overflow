@@ -25,6 +25,6 @@ jQuery(function($) {
 			autoslide_duration: autoslide_duration
 		});
 	$(document.body).addClass('js');
-	$('.js .briefing a').RGEllipsis();
-	$('.analysis a').RGEllipsis();
+	$('.js .briefing a').ellipsis();
+	$('.analysis a').ellipsis();
 });
