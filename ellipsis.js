@@ -7,6 +7,7 @@
 // 
 	$.fn.ellipsis = function (config) {
 		config = $.extend({
+			skip_slow_browsers: false,
 			tolerance: 1, // maximum amount the element can scroll before triggering the truncation
 			content: false, // if not supplied here, content will be scraped from the element itself using $.fn.html()
 			ellipsis: " &hellip; " // will be concatenated to the end of the content if it is truncated
@@ -31,6 +32,9 @@
 			el.scrollTop(origScrolltop); // put it back so nobody suspects nothin'
 			return scrollRoom > config.tolerance;
 		};
+		if (config.skip_slow_browsers && $.browser.msie && $.browser.version < 8) {
+			return this;
+		}
 		return this.each(function () {
 			var try_this, truncated, ellipsis, after_ellipsis, last, i, el, breakables, content,
 				ellipsed = false
