@@ -20,9 +20,9 @@
 			origScrolltop = $el.scrollTop();
 			$el.scrollTop(0);
 			scrollRoom = 0;
-			ost = 0;
+			ost = 0; // old scroll top
 			$el.scrollTop(1);
-			nst = $el.scrollTop();
+			nst = el.scrollTop(); // new scroll top
 			while (ost !== nst) {
 				ost = $el.scrollTop();
 				$el.scrollTop(ost + 1);
