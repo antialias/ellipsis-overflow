@@ -53,55 +53,51 @@
 			}
 			if (!content) return;
 			breakables = content.split(/\s/);
-			$(this).html("");
-			last = "";
-			i = 0;
 			el = $(_this);
 			if (!canscroll(el)) {
 				return;
 			}
+			$(_this).html("");
 			breakables.push(" ");
 			breakables.push(" ");
-
-			for (i in breakables) {
-				if (breakables.hasOwnProperty(i)) {
-					if (!ellipsed && canscroll(el)) {
-						after_ellipsis = $("<span>")
-							.css('display', 'none')
-							.addClass('ellipsised-content');
-						ellipsis = $("<span>")
-							.addClass('ellipsis')
-							.html(config.ellipsis);
-						truncated = $("<span>")
-							.addClass('truncated-content')
-							.html(last);
-						el
-							.html("")
-							.append(truncated)
-							.append(ellipsis)
-							.append(after_ellipsis);
-
-						try_this = last;
-						// if the ellipsis has made the element scroll again, back off character by character until it doesnt
-						while (try_this) {
-							if (try_this.substr(-1).match(/\s/) && !canscroll(el)) { // if we are at a space and cannot scroll
-								break;
-							}
-							try_this = try_this.substr(0, try_this.length - 1);
-							truncated.html(try_this);
-						}
-						if (try_this.length !== last.length) {
-							after_ellipsis.html(last.substr(try_this.length - last.length));
-						}
-						after_ellipsis.html(after_ellipsis.html() + breakables[i - 1] + " ");
-						ellipsed = true;
-						el = after_ellipsis;
-					}
-					last = el.html();
-					el.html(el.html() + breakables[i] + " ");
-					++i;
+			var test, low = 0, high = $(breakables).length;
+			while (high > low + 1) { // binary search to find the scrolling point
+				test = Math.floor((low + high) / 2);
+				el.html(breakables.slice(0,test).join(" ") + " ");
+				if (canscroll(el)) {
+					high = test;
+				} else {
+					low = test;
 				}
 			}
+			var last = breakables.slice(0,high-1).join(' ') + " ";
+			after_ellipsis = $("<span>")
+				.css('display', 'none')
+				.addClass('ellipsised-content');
+			ellipsis = $("<span>")
+				.addClass('ellipsis')
+				.html(config.ellipsis);
+			truncated = $("<span>")
+				.addClass('truncated-content')
+				.html(last);
+			el
+				.html("")
+				.append(truncated)
+				.append(ellipsis)
+				.append(after_ellipsis);
+			try_this = last;
+			// if the ellipsis has made the element scroll again, back off character by character until it doesnt
+			while (try_this) {
+				if (try_this.substr(-1).match(/\s/) && !canscroll(el)) { // if we are at a space and cannot scroll
+					break;
+				}
+				try_this = try_this.substr(0, try_this.length - 1);
+				truncated.html(try_this);
+			}
+			if (try_this.length !== last.length) {
+				after_ellipsis.html(last.substr(try_this.length - last.length));
+			}
+			after_ellipsis.html(after_ellipsis.html() + breakables.slice(high-1).join(" "));
 			el.html($.trim(el.html()));
 		});
 	};
