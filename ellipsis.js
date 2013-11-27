@@ -5,13 +5,13 @@
 // 
 // usage: jQuery(element).ellipsis();
 // 
-	$.fn.ellipsis = function (config) {
+	$.fn.ellipsis = function (_config) {
 		config = $.extend({
 			skip_slow_browsers: false,
 			tolerance: 1, // maximum amount the element can scroll before triggering the truncation
 			content: false, // if not supplied here, content will be scraped from the element itself using $.fn.html()
 			ellipsis: " &hellip; " // will be concatenated to the end of the content if it is truncated
-		}, config);
+		}, _config);
 		var canscroll = function (el) {
 			var ost, nst, scrollRoom, origScrolltop;
 			// calculate the number of pixels we can scroll down at the moment.
