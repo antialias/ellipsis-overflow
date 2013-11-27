@@ -28,6 +28,9 @@
 				el.scrollTop(ost + 1);
 				nst = el.scrollTop();
 				++scrollRoom;
+				if (scrollRoom > config.tolerance) { // break early if we can
+					break;
+				}
 			}
 			el.scrollTop(origScrolltop); // put it back so nobody suspects nothin'
 			return scrollRoom > config.tolerance;
