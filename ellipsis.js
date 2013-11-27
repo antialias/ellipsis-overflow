@@ -6,7 +6,7 @@
 // usage: jQuery(element).ellipsis();
 // 
 	$.fn.ellipsis = function (_config) {
-		config = $.extend({
+		var config = $.extend({}, {
 			skip_slow_browsers: false,
 			tolerance: 1, // maximum amount the element can scroll before triggering the truncation
 			content: false, // if not supplied here, content will be scraped from the element itself using $.fn.html()
