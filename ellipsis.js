@@ -49,13 +49,13 @@
 				_this = this;
 			content = config.content;
 			if (content === false) {
-				content = $(this).html();
+				content = $(_this).html();
 			}
 			breakables = content.split(/\s/);
 			$(this).html("");
 			last = "";
 			i = 0;
-			el = $(this);
+			el = $(_this);
 			breakables.push(" ");
 			breakables.push(" ");
 
