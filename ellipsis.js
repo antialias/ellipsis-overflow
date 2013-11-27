@@ -39,9 +39,14 @@
 			return this;
 		}
 		return this.each(function () {
-			var try_this, truncated, ellipsis, after_ellipsis, last, i, el, breakables, content,
-				ellipsed = false
-			;
+			var try_this,
+				truncated,
+				ellipsis,
+				after_ellipsis,
+				el,
+				breakables,
+				content,
+				_this = this;
 			content = config.content;
 			if (content === false) {
 				content = $(this).html();
