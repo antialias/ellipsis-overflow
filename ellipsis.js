@@ -51,11 +51,15 @@
 			if (content === false) {
 				content = $(_this).html();
 			}
+			if (!content) return;
 			breakables = content.split(/\s/);
 			$(this).html("");
 			last = "";
 			i = 0;
 			el = $(_this);
+			if (!canscroll(el)) {
+				return;
+			}
 			breakables.push(" ");
 			breakables.push(" ");
 
