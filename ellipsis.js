@@ -47,6 +47,7 @@
 				breakables,
 				content,
 				_this = this;
+		setTimeout(function() {
 			content = config.content;
 			if (content === false) {
 				content = $(_this).html();
@@ -99,6 +100,7 @@
 			}
 			after_ellipsis.html(after_ellipsis.html() + breakables.slice(high-1).join(" "));
 			el.html($.trim(el.html()));
+		});
 		});
 	};
 }(jQuery));
