@@ -12,27 +12,27 @@
 			content: false, // if not supplied here, content will be scraped from the element itself using $.fn.html()
 			ellipsis: " &hellip; " // will be concatenated to the end of the content if it is truncated
 		}, _config);
-		var canscroll = function (el) {
+		var canscroll = function ($el) {
 			var ost, nst, scrollRoom, origScrolltop;
 			// calculate the number of pixels we can scroll down at the moment.
 			// keep in mind that different browsers have different tolerances.
 
-			origScrolltop = el.scrollTop();
-			el.scrollTop(0);
+			origScrolltop = $el.scrollTop();
+			$el.scrollTop(0);
 			scrollRoom = 0;
 			ost = 0;
-			el.scrollTop(1);
-			nst = el.scrollTop();
+			$el.scrollTop(1);
+			nst = $el.scrollTop();
 			while (ost !== nst) {
-				ost = el.scrollTop();
-				el.scrollTop(ost + 1);
-				nst = el.scrollTop();
+				ost = $el.scrollTop();
+				$el.scrollTop(ost + 1);
+				nst = $el.scrollTop();
 				++scrollRoom;
 				if (scrollRoom > config.tolerance) { // break early if we can
 					break;
 				}
 			}
-			el.scrollTop(origScrolltop); // put it back so nobody suspects nothin'
+			$el.scrollTop(origScrolltop); // put it back so nobody suspects nothin'
 			return scrollRoom > config.tolerance;
 		};
 		if (config.skip_slow_browsers && $.browser.msie && $.browser.version < 8) {
