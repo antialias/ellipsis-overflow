@@ -38,8 +38,9 @@
 		if (config.skip_slow_browsers && $.browser.msie && $.browser.version < 8) {
 			return this;
 		}
-		return this.each(function () {
-			var try_this,
+		return $.when.apply($, this.map(function () {
+			var D = new $.Deferred(),
+				try_this,
 				truncated,
 				ellipsis,
 				after_ellipsis,
@@ -56,6 +57,7 @@
 				breakables = content.split(/\s/);
 				el = $(_this);
 				if (!canscroll(el)) {
+					D.resolve();
 					return;
 				}
 				$(_this).html("");
@@ -100,7 +102,9 @@
 				}
 				after_ellipsis.html(after_ellipsis.html() + breakables.slice(high-1).join(" "));
 				el.html($.trim(el.html()));
+				D.resolve();
 			});
-		});
+			return D;
+		}));
 	};
 }(jQuery));
