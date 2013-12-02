@@ -22,7 +22,7 @@ Call jquery.fn.ellipsis on the jQuery collection of elements that you want to el
 jQuery(".to-ellipsis").ellipsis();
 ```
 # Limitations
-Content the element can only contain text nodes.
+Truncated content can only consist of text nodes.
 # Return value
 jquery.fn.ellipsis returns a jQuery deferred object that is resolved when all selected elements have been truncated. Attach a done handlers to the deferred object if you want to run code after it is finished.
 #### example:
