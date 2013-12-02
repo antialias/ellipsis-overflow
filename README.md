@@ -16,8 +16,13 @@ Call jquery.fn.ellipsis on the jQuery collection of elements that you want to el
 jQuery(".to-ellipsis").ellipsis();
 ```
 # Options
-jQuery.fn.ellipsis takes an options object with the following properties:
+jQuery.fn.ellipsis takes an optional options object with the following properties:
  - `skip_slow_browsers`: defaults to `false`
  - `tolerance`: defaults to `1` maximum amount the element can scroll before triggering the truncation
- - `content`: defaults to `false`. if not supplied here, content will be scraped from the element itself using $.fn.html()
+ - `content`: defaults to `false`. if not supplied here, content will be scraped from the element itself using `$.fn.html()`
  - `ellipsis`: defaults to `&hellip` html-encoded string of what will be used for the ellipsis character at the end of the ellipsied content.
+
+#### For example:
+```javascript
+jQuery(".to-ellipsis").ellipsis({ellipsis: "...."}); // use a string of four periods instead of …
+```
