@@ -4,6 +4,8 @@ jQuery.fn.ellipsis is a jQuery plugin that truncates the content selected overfl
 # How it works
 jQuery.fn.ellipsis will truncate content from any element that scrolls due to overflow such that it will no longer scroll. There is no built-in browser function that will give the correct content length of an element to prevent overflow, so the optimal length is determined using a binary search algorithm. Once the maximum length without overflow is determined, the ellipsis string is appended. The ellipsis string may cause the content to overflow, so the content is then reduced word by word until the content no longer overflows.
 
+jQuery.fn.ellipsis does most of its work asynchronously to allow for other potentially more noticeable things to happen on your page before the content is truncated, since it's likely that only a few words will be truncated from each element. It returns a jQuery deferred object so you can run code after the truncating has taken place.
+
 # Requirements
 jQuery 1.5 or later
 # Usage
