@@ -13,14 +13,14 @@
 			ellipsis: " &hellip; " // will be concatenated to the end of the content if it is truncated
 		}, _config);
 		var canscroll = function ($el) {
-			var ost, nst, scrollRoom, origScrolltop;
-			// calculate the number of pixels we can scroll down at the moment.
-			// keep in mind that different browsers have different tolerances.
-
+			var scrollRoom = 0,
+				ost = 0, // old scroll top
+				nst, // new scroll top
+				origScrolltop;
+			// Determine if $el can be scrolled by modifying scrollTop and checking if the change has stuck
+			// Note: browsers have different tolerances.
 			origScrolltop = $el.scrollTop();
 			$el.scrollTop(0);
-			scrollRoom = 0;
-			ost = 0; // old scroll top
 			$el.scrollTop(1);
 			nst = $el.scrollTop(); // new scroll top
 			while (ost !== nst) {
