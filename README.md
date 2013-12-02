@@ -1,3 +1,6 @@
+# Description
+jQuery.fn.ellipsis is a jQuery plugin that truncates the content selected overflow-y:scroll elements with an ellipsis character such that they no longer need to scroll. It's a cross-browser, multi-line alternative to `text-overflow: ellipsis`.
+
 # Requirements
 jQuery 1.5 or later
 # Usage
@@ -14,6 +17,14 @@ jQuery 1.5 or later
 Call jquery.fn.ellipsis on the jQuery collection of elements that you want to ellipsis:
 ```javascript
 jQuery(".to-ellipsis").ellipsis();
+```
+# Return value
+jquery.fn.ellipsis returns a jQuery deferred object that is resovled when all selected elements have been truncated. Attach a done handlers to the deferred object if you want to run code after it is finished.
+#### example:
+```javascript
+jQuery(".to-ellipsis").ellipsis().done(function () {
+  console.log("all content has been truncated");
+})
 ```
 # Options
 jQuery.fn.ellipsis takes an optional options object with the following properties:
