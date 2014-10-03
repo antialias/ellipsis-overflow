@@ -1,10 +1,26 @@
-(function ($) {
+(function (root, factory) {
+	"use strict";
+	var m = {};
+	if ("object" === typeof root.module) {
+		factory(
+			module,
+			require('jquery')
+		);
+	} else {
+		factory(
+			m,
+			window.jQuery
+		);
+	}
+})(window, function (module, $) {
+	"use strict";
 // ellipsis
 // re-fills in an element with a set height (or max-height) so that there is no overflow.
 // If content was truncated, config.ellipsis is appended to the end in a way that does not cause further overflow.
 // 
 // usage: jQuery(element).ellipsis();
 // 
+	module.exports = jQuery;
 	$.fn.ellipsis = function (_config) {
 		var config = $.extend({}, {
 			skip_slow_browsers: false,
@@ -107,4 +123,4 @@
 			return D;
 		}));
 	};
-}(jQuery));
+});
