@@ -1,3 +1,4 @@
+// https://github.com/antialias/ellipsis.jquery.js
 (function (root, factory) {
 	"use strict";
 	var m = {};
@@ -64,12 +65,14 @@
 				breakables,
 				content,
 				_this = this;
-			setTimeout(function() {
+			setTimeout(function () {
 				content = config.content;
 				if (content === false) {
 					content = $(_this).html();
 				}
-				if (!content) return;
+				if (!content) {
+					return;
+				}
 				breakables = content.split(/\s/);
 				el = $(_this);
 				if (!canscroll(el)) {
@@ -82,14 +85,14 @@
 				var test, low = 0, high = $(breakables).length;
 				while (high > low + 1) { // binary search to find the scrolling point
 					test = Math.floor((low + high) / 2);
-					el.html(breakables.slice(0,test).join(" ") + " ");
+					el.html(breakables.slice(0, test).join(" ") + " ");
 					if (canscroll(el)) {
 						high = test;
 					} else {
 						low = test;
 					}
 				}
-				var last = breakables.slice(0,high-1).join(' ') + " ";
+				var last = breakables.slice(0, high - 1).join(' ') + " ";
 				after_ellipsis = $("<span>")
 					.css('display', 'none')
 					.addClass('ellipsised-content');
@@ -116,7 +119,7 @@
 				if (try_this.length !== last.length) {
 					after_ellipsis.html(last.substr(try_this.length - last.length));
 				}
-				after_ellipsis.html(after_ellipsis.html() + breakables.slice(high-1).join(" "));
+				after_ellipsis.html(after_ellipsis.html() + breakables.slice(high - 1).join(" "));
 				el.html($.trim(el.html()));
 				D.resolve();
 			});
