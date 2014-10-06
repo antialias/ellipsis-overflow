@@ -25,8 +25,8 @@ jQuery(".to-ellipsis").ellipsis();
 ```
 # Limitations
 Truncated content can only consist of text nodes.
-# Return value
-jquery.fn.ellipsis returns a jQuery deferred object that is resolved when all selected elements have been truncated. Attach a done handlers to the deferred object if you want to run code after it is finished.
+# Running code after everything has been ellipsed
+jquery.fn.ellipsis does its work asynchronously. If you have code that you'd like to run after the ellipsis have been added, attach a done handler to the deferred that is returned by the call to .epplisis().
 #### example:
 ```javascript
 jQuery(".to-ellipsis").ellipsis().done(function () {
