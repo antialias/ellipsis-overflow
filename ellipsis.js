@@ -22,14 +22,18 @@
 // usage: jQuery(element).ellipsis();
 // 
 	module.exports = jQuery;
-	$.fn.ellipsis = function (_config) {
-		var config = $.extend({}, {
+	$.fn.ellipsis = function (config) {
+		var finishedClamping = $.Deferred();
+		config = $.extend({
+			async: true,
 			skip_slow_browsers: false,
 			tolerance: 1, // maximum amount the element can scroll before triggering the truncation
 			content: false, // if not supplied here, content will be scraped from the element itself using $.fn.html()
 			ellipsis: " &hellip; " // will be concatenated to the end of the content if it is truncated
-		}, _config);
-		var canscroll = function ($el) {
+		}, config);
+		var canscroll;
+		var doIt;
+		canscroll = function ($el) {
 			var scrollRoom = 0,
 				ost = 0, // old scroll top
 				nst, // new scroll top
@@ -55,34 +59,42 @@
 		if (config.skip_slow_browsers && $.browser.msie && $.browser.version < 8) {
 			return this;
 		}
-		return $.when.apply($, this.map(function () {
-			var D = new $.Deferred(),
-				try_this,
-				truncated,
-				ellipsis,
-				after_ellipsis,
-				el,
-				breakables,
-				content,
-				_this = this;
-			setTimeout(function () {
+		doIt = $.proxy(function () {
+			this.map($.proxy(function () {
+				var contentKey = '__ellipsis-original-content';
+				var low = 0;
+				var high;
+				var test;
+				var try_this;
+				var truncated;
+				var ellipsis;
+				var after_ellipsis;
+				var el;
+				var breakables;
+				var content;
 				content = config.content;
-				if (content === false) {
-					content = $(_this).html();
+				if (false === content) {
+					content = $(this).data(contentKey);
+					if (undefined === content) {
+						content = $(this).html();
+						$(this).data(contentKey, content);
+					} else {
+						$(this).html(content);
+					}
 				}
 				if (!content) {
 					return;
 				}
 				breakables = content.split(/\s/);
-				el = $(_this);
+				el = $(this);
 				if (!canscroll(el)) {
-					D.resolve();
 					return;
 				}
-				$(_this).html("");
+				$(this).html("");
 				breakables.push(" ");
 				breakables.push(" ");
-				var test, low = 0, high = $(breakables).length;
+				low = 0;
+				high = $(breakables).length;
 				while (high > low + 1) { // binary search to find the scrolling point
 					test = Math.floor((low + high) / 2);
 					el.html(breakables.slice(0, test).join(" ") + " ");
@@ -121,9 +133,14 @@
 				}
 				after_ellipsis.html(after_ellipsis.html() + breakables.slice(high - 1).join(" "));
 				el.html($.trim(el.html()));
-				D.resolve();
-			});
-			return D;
-		}));
+			}, this));
+			finishedClamping.resolve();
+		}, this);
+		if (config.async) {
+			setTimeout(doIt);
+		} else {
+			doIt();
+		}
+		return finishedClamping;
 	};
 });
