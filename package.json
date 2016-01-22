@@ -23,5 +23,8 @@
     "node-assertthat": "^0.2.3",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.11"
+  },
+  "dependencies": {
+    "lodash.assign": "^4.0.0"
   }
 }
