@@ -1,6 +1,6 @@
 {
   "name": "ellipsis-overflow",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "jQuery.fn.ellipsis is a jQuery plugin that truncates the content selected overflow-y:scroll elements with an ellipsis character such that they no longer need to scroll. It's a cross-browser, multi-line alternative to `text-overflow: ellipsis`.",
   "main": "ellipsis.js",
   "scripts": {
