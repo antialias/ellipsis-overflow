@@ -1,0 +1,24 @@
+#no-overflow,
+#happy-path {
+	height: 150px;
+	width: 300px;
+}
+#one-line {
+	height: 1.3em;
+	width: 300px;
+}
+#zero-height {
+	height: 0;
+	width: 300px;
+}
+.ellipsis-this {
+	overflow: scroll;
+}
+.no-overflow {
+	overflow: visible;
+}
+.ellipsis-this,
+.no-overflow {
+	display: block;
+	border: 1px solid red;
+}
