@@ -1,9 +1,7 @@
 // Karma configuration
 // Generated on Fri Jan 22 2016 14:15:12 GMT-0500 (EST)
 
-module.exports = function(config) {
-  config.set({
-
+var config = {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
@@ -50,11 +48,6 @@ module.exports = function(config) {
     colors: true,
 
 
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
-
-
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
@@ -67,6 +60,12 @@ module.exports = function(config) {
         'Safari'
     ],
 
+    customLaunchers: { // http://swizec.com/blog/how-to-run-javascript-tests-in-chrome-on-travis/swizec/6647
+        Chrome_travis_ci: {
+            base: 'Chrome',
+            flags: ['--no-sandbox']
+        }
+    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
@@ -75,5 +74,19 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-  })
+};
+
+if (process.env.TRAVIS) {
+    config.browsers = [
+        'Chrome_travis_ci',
+        'Firefox'
+    ];
+}
+
+module.exports = function(config) {
+    // level of logging
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    config.set(Object.assign(config, {
+        logLevel: config.LOG_INFO
+    }));
 };
